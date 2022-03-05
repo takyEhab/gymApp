@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Text, View, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import { Button, Text, View, StyleSheet, FlatList, TouchableOpacity, Modal, Pressable, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { Icon } from 'react-native-elements'
+import MyModel from './MyModel'
 // const getDays = () => {
 // }
 // const horizontalFlatList = () => {
@@ -9,93 +10,99 @@ import { Icon } from 'react-native-elements'
 //   )
 
 let days = []
-let names = [
-  'Custom name',
-  'Full Body',
-  'Bro split',
-  'Upper/Lower',
-  'Push/Pull/Legs',
-  'Upper/Lower/Push/Pull/Legs',
+
+for (let i = 2; i <= 6; i++) {
+  days.push({ title: i, key: i })
+}
+const NAMES = [
+  { title: 'Full Body' },
+  { title: 'Bro split' },
+  { title: 'Upper/Lower' },
+  { title: 'Push/Pull/Legs' },
+  { title: 'Upper/Lower/Push/Pull/Legs' }
 ]
 
-const createData = (arr) => {
-  if (arr[0]) {
-    arr.forEach((item, i, arr) => {
-      arr[i] = { title: item, key: i }
-    })
-  } else {
-    for (let i = 2; i <= 6; i++) {
-      arr.push({ title: i, key: i })
-    }
-  }
-  return arr
-}
-
-days = createData(days)
-names = createData(names)
 
 export default function WorkoutCreator({ navigation }) {
-  const [day, setDay] = useState('')
-  const dayHandler = (key) => setDay(key)
+  const [nameSelected, setNameSelected] = useState({})
+  const [daySelected, setDaySelected] = useState({})
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const [names, setNames] = useState(NAMES)
+
+  const addName = (newName) => {
+    setNames([{ title: newName }, ...NAMES])
+    setNameSelected(newName)
+  }
   return (
-    <View style={styles.container}>
-
-      <Text style={styles.infoText}>Name</Text>
-      <View style={styles.daysSection}>
-
-        <FlatList
-          data={names}
-          showsHorizontalScrollIndicator={true}
-          horizontal={true}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={day === item.key ? { ...styles.item, backgroundColor: '#f176ff' } : styles.item}
-              onPress={() => dayHandler(item.key)}
-            >
 
 
-              {item.title == 'Custom name' ?
-                <Icon
-                onPress={() => console.log('hello')}
+      <View style={styles.container}>
+
+        <Text style={styles.infoText}>Name</Text>
+        <View style={styles.daysSection}>
+
+          <FlatList
+            data={
+              [{
+                title: <Icon
                   name='add'
                   type='ionicon'
                   color='#517fa4'
-                // style={{right:5}}
-                /> :
+                />
+              }, ...names]
+            }
+            // numColumns={}
+            keyExtractor={(item, i) => i.toString()}
+            showsHorizontalScrollIndicator={true}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={nameSelected === item.title && !item.title.props ? { ...styles.item, backgroundColor: '#f176ff' } : styles.item}
+                onPress={() => {
+                  setNameSelected(item.title)
+                  // if icon 
+                  if (item.title.props) setModalVisible(true)
+                }}
+              >
                 <Text style={styles.title}>
                   {item.title}
-                </Text>}
+                </Text>
+
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+
+
+        <MyModel setModalVisible={setModalVisible} addName={addName} modalVisible={modalVisible} />
 
 
 
-            </TouchableOpacity>
-          )}
-        />
+ 
+        <Text style={styles.infoText}>Days weekly</Text>
+        <View style={styles.daysSection}>
+
+          <FlatList
+            data={days}
+            showsHorizontalScrollIndicator={true}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={daySelected === item.title ? { ...styles.item, backgroundColor: '#f176ff' } : styles.item}
+                onPress={() => setDaySelected(item.title)}
+              >
+                <Text style={styles.title}>
+                  {item.title} Days
+
+                </Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+
       </View>
 
-      <Text style={styles.infoText}>Days weekly</Text>
-      <View style={styles.daysSection}>
-
-        <FlatList
-          data={days}
-          showsHorizontalScrollIndicator={true}
-          horizontal={true}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={day === item.key ? { ...styles.item, backgroundColor: '#f176ff' } : styles.item}
-              onPress={() => dayHandler(item.key)}
-            >
-              <Text style={styles.title}>
-                {item.title} Days
-
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-
-    </View>
   )
 }
 

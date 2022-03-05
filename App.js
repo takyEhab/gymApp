@@ -29,7 +29,7 @@ export default function App() {
           name="workoutCreator"
           component={WorkoutCreator}
           options={{
-            title: 'Workout split creator',
+            title: 'Workout program creator',
             headerStyle: {
               backgroundColor: '#8C60D9',
             },
