@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
             name='list'
             type='entypo'
             color='#8C60D9'
-            onPress={() => console.log('hello')} />
+            onPress={() => navigation.navigate('ViewWorkout')} />
         </View>
 
       </View>

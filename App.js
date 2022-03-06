@@ -6,6 +6,8 @@ import * as NavigationBar from 'expo-navigation-bar';
 
 import Home from './components/Home'
 import WorkoutCreator from './components/WorkoutCreator';
+import FillMore from './components/ViewWorkout';
+import ViewWorkout from './components/ViewWorkout';
 
 
 export default function App() {
@@ -39,6 +41,22 @@ export default function App() {
             },
           }}
         />
+        <Stack.Screen
+          //  options={{ headerShown: false }} 
+          name="ViewWorkout"
+          options={{
+            title: 'View Workout',
+            headerStyle: {
+              backgroundColor: '#8C60D9',
+            },
+            headerTintColor: '#dff6ff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+          component={ViewWorkout}
+           />
+
       </Stack.Navigator>
     </NavigationContainer>
   )
