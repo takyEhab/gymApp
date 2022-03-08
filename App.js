@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
 
-import Home from './components/Home'
-import WorkoutCreator from './components/WorkoutCreator';
-import FillMore from './components/ViewWorkout';
-import ViewWorkout from './components/ViewWorkout';
+import Home from './screen/Home'
+import WorkoutCreator from './screen/WorkoutCreator';
+import ViewWorkout from './screen/ViewWorkout';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import MyTabs from './screen/ViewWorkout'
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,7 +22,6 @@ export default function App() {
       }, 4000);
     }
   });
-
   return (
     <NavigationContainer>
       <StatusBar hidden />
@@ -45,17 +46,19 @@ export default function App() {
           //  options={{ headerShown: false }} 
           name="ViewWorkout"
           options={{
-            title: 'View Workout',
+            title: 'My Workout',
             headerStyle: {
               backgroundColor: '#8C60D9',
+              
             },
             headerTintColor: '#dff6ff',
             headerTitleStyle: {
               fontWeight: 'bold',
+              
             },
           }}
-          component={ViewWorkout}
-           />
+          component={MyTabs}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>

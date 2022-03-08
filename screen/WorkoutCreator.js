@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Text, View, StyleSheet, FlatList, TouchableOpacity, Modal, Pressable, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import { Icon } from 'react-native-elements'
-import MyModel from './MyModel'
-import MyFlatList from './MyFlatList'
+import MyModel from '../components/MyModel'
+import MyFlatList from '../components/MyFlatList'
 
 // const getDays = () => {
 // }
@@ -49,7 +49,7 @@ export default function WorkoutCreator({ navigation }) {
   const handleNext = () => {
     if (daySelected && nameSelected) {
        console.log('hello')
-       navigation.navigate('FillMore')
+       navigation.navigate('ViewWorkout')
        }
   }
 
@@ -117,3 +117,4 @@ const styles = StyleSheet.create({
 
 
 })
+
