@@ -11,9 +11,9 @@ export default function Home({ navigation }) {
 
       <View style={styles.body}>
 
-        <View style={{ alignItems: 'center', right: 60 }}>
+        <View style={{ right: 60 }}>
           <Text style={styles.infoText}>
-              New{'\n'}Workout Split
+            New{'\n'}Workout Split
           </Text>
           <Icon
 
@@ -25,7 +25,7 @@ export default function Home({ navigation }) {
 
         </View>
 
-        <View style={{ alignItems: 'center', }}>
+        <View>
           <Text style={styles.infoText}>
             your{'\n'}workout splits
           </Text>
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     bottom: 65,
     flexDirection: 'row',
     left: 30,
+    justifyContent: 'space-around',
+
     paddingHorizontal: 25
   },
   infoText: {

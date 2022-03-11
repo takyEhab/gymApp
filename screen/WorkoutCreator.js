@@ -1,15 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Text, View, StyleSheet, FlatList, TouchableOpacity, Modal, Pressable, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import MyModel from '../components/MyModel'
 import MyFlatList from '../components/MyFlatList'
-
-// const getDays = () => {
-// }
-// const horizontalFlatList = () => {
-//   return (
-//     <View></View>
-//   )
 
 let days = []
 

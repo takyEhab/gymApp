@@ -2,29 +2,18 @@ import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 
-export default function ExerciseItem({ title, sets, reps, weight }) {
+export default function ExerciseItem({ title, targetMuscle, sets, reps }) {
   const [isVolumeEdit, setVolumeEdit] = useState(false)
   return (
     <View style={styles.card}>
       <Image style={styles.exerciseImg} source={require('../assets/bench-press-1-1000x1000.jpg')} />
       {/* <View style={{ width: 100, backgroundColor: 'red' }}></View> */}
-      <TouchableOpacity style={styles.editIcon} onPress={() => console.log('hello')}>
-        <Icon
-          size={12}
-          reverse
-          color="#8C60D9"
-          name='edit'
-          type="font-awesome-5"
-        />
-      </TouchableOpacity>
-
-
 
       <Text style={styles.exerciseName}>
         {title}
         {'\n'}
         <Text style={styles.muscles}>
-          Chest, Tricep
+          {targetMuscle}
         </Text>
       </Text>
       <TouchableOpacity style={styles.volumeInfo}
@@ -51,7 +40,16 @@ export default function ExerciseItem({ title, sets, reps, weight }) {
 
           }
         </View>
+      </TouchableOpacity>
 
+      <TouchableOpacity style={styles.editIcon} onPress={() => console.log('hello')}>
+        <Icon
+          size={12}
+          reverse
+          color="#8C60D9"
+          name='edit'
+          type="font-awesome-5"
+        />
       </TouchableOpacity>
 
     </View>
@@ -71,7 +69,9 @@ const styles = StyleSheet.create({
     color: 'white',
     borderRadius: 20,
     justifyContent: 'center',
-    height: 170
+    height: 170,
+    overflow: 'hidden'
+
   },
   volumeInfo: {
     backgroundColor: '#6B5891',
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: 1,
-    borderRadius: 10,
     // margin: 5,
   }, setInfo: {
     flex: 1,
@@ -101,26 +100,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   }, textInfo: {
     fontSize: 19
-  }, muscles: {
-    opacity: 0.5,
-    fontSize: 15,
-    // top : 10 , right : 20, position: 'absolute',
-    color: 'white',
-    lineHeight: 40
-  }, exerciseName: {
+  },
+  exerciseName: {
     fontSize: 20,
     top: 25,
-    right: 30,
-
+    width: 200,
+    left: 120,
     position: 'absolute',
-    color: 'white', opacity: 0.8,
-    // margin: 30,
+    color: 'white',
+    opacity: 0.8,
     // backgroundColor:'red'
-  }, editIcon: {
-    position: 'absolute',
-    top: 0,
-    right: 0
-  }, exerciseImg: {
+  },
+  muscles: {
+    fontSize: 15,
+    color: 'white',
+    lineHeight: 40
+  },
+  exerciseImg: {
     width: 100,
     height: 90,
     position: 'absolute',
@@ -128,5 +124,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 20
 
-  }
+  }, editIcon: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  },
 })

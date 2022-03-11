@@ -10,7 +10,7 @@ import WorkoutCreator from './screen/WorkoutCreator';
 import ViewWorkout from './screen/ViewWorkout';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import MyTabs from './screen/ViewWorkout'
+import MyTabs from './screen/MyTabs'
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -38,6 +38,7 @@ export default function App() {
             },
             headerTintColor: '#dff6ff',
             headerTitleStyle: {
+              alignSelf: 'center',
               fontWeight: 'bold',
             },
           }}
@@ -46,19 +47,25 @@ export default function App() {
           //  options={{ headerShown: false }} 
           name="ViewWorkout"
           options={{
-            title: 'My Workout',
+            title: 'Push/Pull/Legs',
             headerStyle: {
               backgroundColor: '#8C60D9',
-              
+              alignSelf: 'center',
+
             },
             headerTintColor: '#dff6ff',
             headerTitleStyle: {
+              alignSelf: 'center',
+
               fontWeight: 'bold',
-              
+
             },
           }}
-          component={MyTabs}
-        />
+        // component={MyTabs}
+        >
+          {props => <MyTabs {...props} daysNum={5} />}
+
+        </Stack.Screen>
 
       </Stack.Navigator>
     </NavigationContainer>
