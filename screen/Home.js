@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Touchable, ScrollView, Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 export default function Home({ navigation }) {

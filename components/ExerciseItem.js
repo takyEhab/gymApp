@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
+import NewExercise from './NewExercise'
 
-export default function ExerciseItem({ title, targetMuscle, sets, reps }) {
+export default function ExerciseItem({ item, navigation }) {
   const [isVolumeEdit, setVolumeEdit] = useState(false)
   return (
     <View style={styles.card}>
@@ -10,39 +11,41 @@ export default function ExerciseItem({ title, targetMuscle, sets, reps }) {
       {/* <View style={{ width: 100, backgroundColor: 'red' }}></View> */}
 
       <Text style={styles.exerciseName}>
-        {title}
+        {item.name}
         {'\n'}
         <Text style={styles.muscles}>
-          {targetMuscle}
+          {item.targetMuscle}
         </Text>
       </Text>
       <TouchableOpacity style={styles.volumeInfo}
         onPress={() => setVolumeEdit(!isVolumeEdit)}
       >
         <View style={styles.setInfo}>
-          <Text style={styles.textInfo} >sets: {!isVolumeEdit && sets}</Text>
+          <Text style={styles.textInfo} >sets: {!isVolumeEdit && item.sets}</Text>
 
           {
             isVolumeEdit &&
             <TextInput style={styles.textInput}
-              value={sets.toString()} />
+              value={item.sets.toString()} />
 
           }
         </View>
 
         <View style={styles.setInfo}>
 
-          <Text style={styles.textInfo} >reps: {!isVolumeEdit && reps} </Text>
+          <Text style={styles.textInfo} >reps: {!isVolumeEdit && item.reps} </Text>
           {
             isVolumeEdit &&
             <TextInput style={styles.textInput}
-              value={reps.toString()} />
+              value={item.reps.toString()} />
 
           }
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.editIcon} onPress={() => console.log('hello')}>
+      <TouchableOpacity style={styles.editIcon} onPress={
+        () => navigation.navigate('MyModal', { item })
+      }>
         <Icon
           size={12}
           reverse
@@ -51,7 +54,6 @@ export default function ExerciseItem({ title, targetMuscle, sets, reps }) {
           type="font-awesome-5"
         />
       </TouchableOpacity>
-
     </View>
 
   )

@@ -6,32 +6,25 @@ import ExerciseItem from '../components/ExerciseItem'
 import { days } from './WorkoutCreator';
 
 
-export default function ViewWorkout({ title }) {
-  const [exercises, setExercises] = useState([
-    { name: 'Barbell Bench Press', targetMuscle: 'Chest', sets: '4', reps: '4-6' },
-    { name: 'Barbell Bench Press', targetMuscle: 'Chest', sets: '4', reps: '4-6' },
-    { name: 'Barbell Bench Press', targetMuscle: '', sets: '4', reps: '4-6' },
-    { name: 'Barbell Bench', targetMuscle: 'Chest', sets: '4', reps: '4-6' },
-    { name: 'Barbell ', targetMuscle: 'Chest', sets: '4', reps: '4-6' },
-  ])
+export default function ViewWorkout({ title, navigation }) {
+  const [exercises, setExercises] = useState([])
 
   const addExercise = (data) => {
-    setExercises(prev => [...prev, data])
+    setExercises(prev => [data, ...prev])
     console.log(exercises)
+    navigation.navigate('ViewWorkout')
   }
   return (
     <View style={styles.container}>
 
       <FlatList
-      contentContainerStyle={{paddingBottom: 80}}
+        contentContainerStyle={{ paddingBottom: 80 }}
         data={exercises}
         keyExtractor={(item, i) => i.toString()}
-        renderItem={({ item }) => (
-          <ExerciseItem title={item.name} targetMuscle={item.targetMuscle} sets={item.sets} reps={item.reps} />
-        )}
+        renderItem={({ item }) => <ExerciseItem item={item} navigation={navigation} />}
       />
 
-      <EditTab addExercise={addExercise} />
+      <EditTab addExercise={addExercise} navigation={navigation} />
 
     </View>
   )

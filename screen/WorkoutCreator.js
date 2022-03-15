@@ -41,9 +41,9 @@ export default function WorkoutCreator({ navigation }) {
 
   const handleNext = () => {
     if (daySelected && nameSelected) {
-       console.log('hello')
-       navigation.navigate('ViewWorkout')
-       }
+      console.log('hello')
+      navigation.navigate('ViewWorkout')
+    }
   }
 
   return (

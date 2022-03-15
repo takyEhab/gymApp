@@ -1,16 +1,15 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar';
-
 import Home from './screen/Home'
 import WorkoutCreator from './screen/WorkoutCreator';
-import ViewWorkout from './screen/ViewWorkout';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
 import MyTabs from './screen/MyTabs'
+import NewExercise from './components/NewExercise';
+import Header from './components/Header';
+
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -26,48 +25,47 @@ export default function App() {
     <NavigationContainer>
       <StatusBar hidden />
 
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator
+
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#744db8',
+          },
+          headerTintColor: '#d7d3de',
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontWeight: 'bold',
+          },
+        }}
+        initialRouteName="Home"
+      >
+
+
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+
         <Stack.Screen
           name="workoutCreator"
           component={WorkoutCreator}
           options={{
-            title: 'Workout program creator',
-            headerStyle: {
-              backgroundColor: '#8C60D9',
-            },
-            headerTintColor: '#dff6ff',
-            headerTitleStyle: {
-              alignSelf: 'center',
-              fontWeight: 'bold',
-            },
+            title: 'Workout program creator'
           }}
         />
-        <Stack.Screen
-          //  options={{ headerShown: false }} 
-          name="ViewWorkout"
+
+        <Stack.Screen name="ViewWorkout"
+          // options={{ title: 'Push/Pull/Legs' }}// update according to database
           options={{
-            title: 'Push/Pull/Legs',
-            headerStyle: {
-              backgroundColor: '#8C60D9',
-              alignSelf: 'center',
-
-            },
-            headerTintColor: '#dff6ff',
-            headerTitleStyle: {
-              alignSelf: 'center',
-
-              fontWeight: 'bold',
-
-            },
+            headerTitle: (props) => <Header {...props} />
           }}
-        // component={MyTabs}
+
         >
           {props => <MyTabs {...props} daysNum={5} />}
-
         </Stack.Screen>
 
+        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
+
       </Stack.Navigator>
+
     </NavigationContainer>
   )
 }
+

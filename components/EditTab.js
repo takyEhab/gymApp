@@ -4,14 +4,17 @@ import { Icon } from 'react-native-elements'
 import { Formik } from 'formik'
 import NewExercise from './NewExercise'
 
-export default function EditTab({ addExercise }) {
-  const [modalVisible, setModalVisible] = useState(false)
+export default function EditTab({ addExercise, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Icon name='add' size={40} onPress={() => setModalVisible(true)} />
-      <Icon name='play' size={40} type='material-community' />
-      <NewExercise addExercise={addExercise} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', {
+        addExercise,
+        // otherParam: 'anything you want here',
+      })} />
+      <Icon
+        size={30}
+        name="more-vertical" type='feather' />
     </View>
   )
 }
