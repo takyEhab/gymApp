@@ -33,7 +33,11 @@ export default function NewExercise({ route, navigation }) {
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ backgroundColor: '#fff', flex: 1 }}>
+      <View style={{
+        // backgroundColor: '#121212'
+        backgroundColor: '#fff'
+        , flex: 1
+      }}>
         <View style={{ backgroundColor: '#121212', padding: 30, alignItems: 'center', justifyContent: 'center' }}>
           <TouchableOpacity
             style={{ position: 'absolute', left: 5 }}

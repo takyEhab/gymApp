@@ -43,6 +43,9 @@ export default function MyTabs({ daysNum }) {
           key={k}
           name={`Day ${k + 1}`}
           component={ViewWorkout}
+          // component={() => <ViewWorkout title='push' />}
+
+
         />
       ))}
 

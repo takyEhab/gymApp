@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, TextInput } from 'react-native'
 import { Icon } from 'react-native-elements'
-import { Formik } from 'formik'
-import NewExercise from './NewExercise'
 
-export default function EditTab({ addExercise, navigation }) {
-
+export default function EditTab({ addExercise, navigation, clearStorage }) {
   return (
     <View style={styles.container}>
       <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', {
@@ -14,6 +11,7 @@ export default function EditTab({ addExercise, navigation }) {
       })} />
       <Icon
         size={30}
+        onPress={clearStorage}
         name="more-vertical" type='feather' />
     </View>
   )
