@@ -9,7 +9,11 @@ import MyTabs from './screen/MyTabs'
 import NewExercise from './components/NewExercise';
 import Header from './components/Header';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from "./store/reducer";
 
+let store = createStore(reducer)
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -22,50 +26,54 @@ export default function App() {
     }
   });
   return (
-    <NavigationContainer>
-      <StatusBar hidden />
+    <Provider store={store}>
 
-      <Stack.Navigator
+      <NavigationContainer>
+        <StatusBar hidden />
 
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#744db8',
-          },
-          headerTintColor: '#d7d3de',
-          headerTitleStyle: {
-            alignSelf: 'center',
-            fontWeight: 'bold',
-          },
-        }}
-        initialRouteName="Home"
-      >
+        <Stack.Navigator
 
-
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-
-        <Stack.Screen
-          name="workoutCreator"
-          component={WorkoutCreator}
-          options={{
-            title: 'Workout program creator'
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#744db8',
+            },
+            headerTintColor: '#d7d3de',
+            headerTitleStyle: {
+              alignSelf: 'center',
+              fontWeight: 'bold',
+            },
           }}
-        />
-
-        <Stack.Screen name="ViewWorkout"
-          // options={{ title: 'Push/Pull/Legs' }}// update according to database
-          options={{
-            headerTitle: (props) => <Header {...props} />
-          }}
-
+          initialRouteName="Home"
         >
-          {props => <MyTabs {...props} daysNum={5} />}
-        </Stack.Screen>
 
-        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
 
-      </Stack.Navigator>
+          <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
 
-    </NavigationContainer>
+          <Stack.Screen
+            name="workoutCreator"
+            component={WorkoutCreator}
+            options={{
+              title: 'Workout program creator'
+            }}
+          />
+
+          <Stack.Screen name="ViewWorkout"
+            // options={{ title: 'Push/Pull/Legs' }}// update according to database
+            options={{
+              headerTitle: (props) => <Header {...props} />
+            }}
+
+          >
+            {props => <MyTabs {...props} daysNum={5} />}
+          </Stack.Screen>
+
+          <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
+
+        </Stack.Navigator>
+
+      </NavigationContainer>
+    </Provider>
+
   )
 }
 

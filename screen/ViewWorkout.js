@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, FlatList, View, Text, Button } from 'react-native'
-import { Icon } from 'react-native-elements'
 import EditTab from '../components/EditTab';
 import ExerciseItem from '../components/ExerciseItem'
-import { days } from './WorkoutCreator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 
 
 export default function ViewWorkout({ title, navigation }) {
@@ -41,18 +40,10 @@ export default function ViewWorkout({ title, navigation }) {
     }
   }
 
-
+  const workout = useSelector(state => state.day1)
   const addExercise = (data) => {
-
     storeData(data)
-    setExercises((prev) => {
-
-      return [data, ...prev]
-    }
-
-    )
-
-    console.log(exercises)
+    setExercises((prev) => [data, ...prev])
 
     navigation.navigate('ViewWorkout')
   }
@@ -61,7 +52,7 @@ export default function ViewWorkout({ title, navigation }) {
     <View style={styles.container}>
       <FlatList
         contentContainerStyle={{ paddingBottom: 80 }}
-        data={exercises}
+        data={workout}
         keyExtractor={(item, i) => i.toString()}
         renderItem={({ item }) => <ExerciseItem item={item} navigation={navigation} />}
       />
