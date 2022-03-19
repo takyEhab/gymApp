@@ -8,7 +8,6 @@ import { addExercise } from '../store/actions'
 
 export default function ViewWorkout({ day, navigation }) {
   const state = useSelector(state => state.exercisesReducer)
-  console.log(state[day])
   return (
     <View style={styles.container}>
 

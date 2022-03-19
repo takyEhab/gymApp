@@ -7,5 +7,11 @@ const addExercise = (day, data) => {
   }
 }
 
+const editExercise = (day, data) => {
+  return {
+    type: ActionTypes.EDIT_EXERCISE,
+    payload: { day, data }
+  }
+}
 
-export { addExercise }
+export { addExercise, editExercise }

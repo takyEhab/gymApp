@@ -14,12 +14,11 @@ import { v4 as uuidv4 } from 'uuid';
 // }
 
 const initialState = {
+  // workouts: { name: 'Push/pull/legs', days: 5 }
 }
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_EXERCISE:
-      // state[action.payload.day].some(el => el.key === action.payload.data.key) ? [item] : ''
-
       return {
         ...state,
         [action.payload.day]: state[action.payload.day] ?
@@ -28,16 +27,14 @@ const reducer = (state = initialState, action) => {
       }
 
     case ActionTypes.EDIT_EXERCISE:
-      return initialState
-      // let myArray = state[action.payload.day]
-      // const objIndex = myArray.findIndex((obj => obj.key == action.payload.data.key))
-      // myArray[objIndex] = action.payload.data
+      let myArray = state[action.payload.day]
+      const objIndex = myArray.findIndex((obj => obj.key == action.payload.data.key))
+      myArray[objIndex + 1] = action.payload.data
 
-      // return {
-      //   ...state,
-      //   [action.payload.day]: myArray
-      //   // [action.payload.day]: [...state[action.payload.day], action.payload.data]
-      // }
+      return {
+        ...state,
+        [action.payload.day]: myArray
+      }
 
     default:
       return state

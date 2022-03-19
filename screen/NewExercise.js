@@ -4,8 +4,7 @@ import { Icon } from 'react-native-elements'
 import { Formik } from 'formik'
 import FormikChild from '../components/FormikChild';
 import * as yup from 'yup'
-import { addExerciseAction } from '../store/actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { addExercise, editExercise } from '../store/actions';
 import { useDispatch } from 'react-redux';
 // /^(\d+-?)+\d+$/
 
@@ -30,34 +29,10 @@ export default function NewExercise({ route, navigation }) {
   const dispatch = useDispatch()
   const formRef = useRef()
 
-  const { day, item } = route.params
+  const { day, item, edit } = route.params
 
-  // const storeData = async (value,day) => {
-  //   try {
-  //     // const prevData = await getData()
-  //     // const jsonValue = JSON.stringify(prevData ? [...prevData, value] : [value])
-  //     // const jsonValue = JSON.stringify(value)
-  //     await AsyncStorage.setItem(day, jsonValue)
-  //   } catch (e) {
-  //     // saving error
-  //     console.error(e)
-
-  //   }
-  // }
-  // useEffect(() => {
-
-  //   storeData()
-  // }, [])
-
-  const addExercise = (data) => {
-    // dispatch(addExerciseAction('day1', data))
-    // storeData(data)
-
-    dispatch({
-      type: item ? 'EDIT_EXERCISE' : 'ADD_EXERCISE',
-      payload: { day, data }
-    })
-    // console.log(edit ? 'edit' : 'not edit')
+  const handleData = (data) => {
+    dispatch(edit ? addExercise(day, data) : editExercise(day, data))
     navigation.navigate('ViewWorkout')
   }
   const handleSubmit = () => {
@@ -68,7 +43,7 @@ export default function NewExercise({ route, navigation }) {
 
   const onFormSubmit = (values, actions) => {
     actions.resetForm()
-    addExercise(values)
+    handleData(values)
   }
 
   return (

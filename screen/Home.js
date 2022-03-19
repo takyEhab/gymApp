@@ -1,9 +1,7 @@
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { useDispatch } from 'react-redux'
 
 export default function Home({ navigation }) {
-  const dispatch = useDispatch()
   return (
     <View style={styles.container}>
       <Image
@@ -23,14 +21,8 @@ export default function Home({ navigation }) {
             name='ios-add-circle-outline'
             type='ionicon'
             color='#8C60D9'
-            // onPress={() => navigation.navigate('workoutCreator')} />
-            onPress={() => {
-              dispatch({
-                type: 'EDIT_EXERCISE',
-                payload: { day: '', data: [] }
-              })
-            }}
-          />
+            onPress={() => navigation.navigate('workoutCreator')} />
+
         </View>
 
         <View>

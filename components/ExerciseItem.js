@@ -44,8 +44,7 @@ export default function ExerciseItem({ item, navigation, day }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.editIcon} onPress={
-        // () => navigation.navigate('MyModal')
-        () => navigation.navigate('MyModal', { day, item })
+        () => navigation.navigate('MyModal', { day, item, edit: true })
       }>
         <Icon
           size={12}
