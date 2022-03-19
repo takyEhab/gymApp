@@ -1,7 +1,7 @@
 import React from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ViewWorkout from "./ViewWorkout";
-import { StyleSheet, Text, View, TouchableOpacity, Animated, } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -42,11 +42,15 @@ export default function MyTabs({ daysNum }) {
         <Tab.Screen
           key={k}
           name={`Day ${k + 1}`}
-          component={ViewWorkout}
-          // component={() => <ViewWorkout title='push' />}
+        // component={ViewWorkout}
+        // component={() => <ViewWorkout title='push' />}
 
 
-        />
+        >
+
+          {props => <ViewWorkout {...props} day={`day${k + 1}`} />}
+
+        </Tab.Screen>
       ))}
 
     </Tab.Navigator >

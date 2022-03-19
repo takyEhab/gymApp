@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, TextInput } from 'react-native'
 import { Icon } from 'react-native-elements'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function EditTab({ addExercise, navigation, clearStorage }) {
+export default function EditTab({ navigation, day }) {
   return (
     <View style={styles.container}>
-      <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', {
-        addExercise,
-        // otherParam: 'anything you want here',
-      })} />
+      <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', { day })} />
       <Icon
         size={30}
-        onPress={clearStorage}
+        onPress={async () => await AsyncStorage.clear()}
         name="more-vertical" type='feather' />
     </View>
   )

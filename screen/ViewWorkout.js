@@ -1,63 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, FlatList, View, Text, Button } from 'react-native'
+import { StyleSheet, FlatList, View } from 'react-native'
 import EditTab from '../components/EditTab';
 import ExerciseItem from '../components/ExerciseItem'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addExercise } from '../store/actions'
 
-
-export default function ViewWorkout({ title, navigation }) {
-  const [exercises, setExercises] = useState([
-    // { name: 'Bench Press', targetMuscle: 'Chest', sets: 4, reps: 6 }
-  ])
-  useEffect(async () => {
-    const data = await getData()
-    setExercises(data ? data : [])
-
-  }, [])
-
-  const storeData = async (value) => {
-    try {
-      const prevData = await getData()
-      const jsonValue = JSON.stringify(prevData ? [...prevData, value] : [value])
-      // const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
-    } catch (e) {
-      // saving error
-      console.error(e)
-
-    }
-  }
-
-  const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-      // jsonValue != null ? console.log(JSON.parse(jsonValue)) : null;
-    } catch (e) {
-      // error reading value
-      console.error(e)
-    }
-  }
-
-  const workout = useSelector(state => state.day1)
-  const addExercise = (data) => {
-    storeData(data)
-    setExercises((prev) => [data, ...prev])
-
-    navigation.navigate('ViewWorkout')
-  }
-
+export default function ViewWorkout({ day, navigation }) {
+  const state = useSelector(state => state.exercisesReducer)
+  console.log(state[day])
   return (
     <View style={styles.container}>
+
       <FlatList
         contentContainerStyle={{ paddingBottom: 80 }}
-        data={workout}
+        // data={state[day] ? state[day] : []}
+        data={state[day]}
         keyExtractor={(item, i) => i.toString()}
-        renderItem={({ item }) => <ExerciseItem item={item} navigation={navigation} />}
+        renderItem={({ item }) => <ExerciseItem item={item} day={day} navigation={navigation} />}
       />
 
-      <EditTab clearStorage={async () => await AsyncStorage.clear()} addExercise={addExercise} navigation={navigation} />
+      <EditTab navigation={navigation} day={day} />
 
     </View>
   )

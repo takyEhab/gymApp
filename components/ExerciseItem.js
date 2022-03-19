@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
-import NewExercise from './NewExercise'
 
-export default function ExerciseItem({ item, navigation }) {
+export default function ExerciseItem({ item, navigation, day }) {
+
   const [isVolumeEdit, setVolumeEdit] = useState(false)
   return (
     <View style={styles.card}>
@@ -44,7 +44,8 @@ export default function ExerciseItem({ item, navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.editIcon} onPress={
-        () => navigation.navigate('MyModal', { item })
+        // () => navigation.navigate('MyModal')
+        () => navigation.navigate('MyModal', { day, item })
       }>
         <Icon
           size={12}

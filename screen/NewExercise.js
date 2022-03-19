@@ -2,26 +2,67 @@ import React, { useRef, useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { Formik } from 'formik'
-import DropDownPicker from 'react-native-dropdown-picker';
-import { useFormikContext } from 'formik';
-import FormikChild from './FormikChild';
+import FormikChild from '../components/FormikChild';
 import * as yup from 'yup'
+import { addExerciseAction } from '../store/actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+// /^(\d+-?)+\d+$/
 
 const exerciseSchema = yup.object({
   name: yup.string().required().min(4),
   targetMuscle: yup.string().required(),
-  sets: yup.number().required().positive().integer().min(1).max(50),
-  reps: yup.number().required().positive().integer().min(1).max(300),
+  sets: yup.string()
+    .required()
+    .matches(
+      /^(\d+-|\d?)+\d+$/,
+      "Input should only be number and maybe dash in between"
+    ),
+  reps: yup.string()
+    .required()
+    .matches(
+      /^(\d+-|\d?)+\d+$/,
+      "Input should only be number and maybe dash in between"
+    )
 })
 
 export default function NewExercise({ route, navigation }) {
-  const { addExercise, item } = route.params;
-
+  const dispatch = useDispatch()
   const formRef = useRef()
+
+  const { day, item } = route.params
+
+  // const storeData = async (value,day) => {
+  //   try {
+  //     // const prevData = await getData()
+  //     // const jsonValue = JSON.stringify(prevData ? [...prevData, value] : [value])
+  //     // const jsonValue = JSON.stringify(value)
+  //     await AsyncStorage.setItem(day, jsonValue)
+  //   } catch (e) {
+  //     // saving error
+  //     console.error(e)
+
+  //   }
+  // }
+  // useEffect(() => {
+
+  //   storeData()
+  // }, [])
+
+  const addExercise = (data) => {
+    // dispatch(addExerciseAction('day1', data))
+    // storeData(data)
+
+    dispatch({
+      type: item ? 'EDIT_EXERCISE' : 'ADD_EXERCISE',
+      payload: { day, data }
+    })
+    // console.log(edit ? 'edit' : 'not edit')
+    navigation.navigate('ViewWorkout')
+  }
   const handleSubmit = () => {
     if (formRef.current) {
       formRef.current.handleSubmit()
-      // console.log(formRef)
     }
   }
 
