@@ -14,10 +14,17 @@ import { v4 as uuidv4 } from 'uuid';
 // }
 
 const initialState = {
-  // workouts: { name: 'Push/pull/legs', days: 5 }
+  workoutInfo: { name: 'Push/pull/legs', days: 5 }
 }
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.NEW_WORKOUT:
+      const { name, days } = action.payload
+      return {
+        ...state,
+        workoutInfo: { name, days }
+      }
+
     case ActionTypes.ADD_EXERCISE:
       return {
         ...state,
@@ -35,6 +42,19 @@ const reducer = (state = initialState, action) => {
         ...state,
         [action.payload.day]: myArray
       }
+
+    case ActionTypes.REMOVE_EXERCISE:
+      // return state.tasks.filter((item) => item !== task)
+      return {
+        ...state,
+        [action.payload.day]: state[action.payload.day].filter((item) => item.key !== action.payload.key)
+      }
+    case ActionTypes.REMOVE_DAY:
+      delete state[action.payload]
+      return state
+
+    // const day = action.payload
+    // return state.tasks.filter((item) => item !== task)
 
     default:
       return state

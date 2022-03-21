@@ -9,12 +9,23 @@ import MyTabs from './screen/MyTabs'
 import NewExercise from './screen/NewExercise';
 import Header from './components/Header';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { store, persistor } from './store/storeConfig'
 
-export default function App() {
-  const Stack = createNativeStackNavigator();
+export default function AppWrapper() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  )
+}
 
+function App() {
+  const Stack = createNativeStackNavigator();
+  const state = useSelector(state => state.exercisesReducer)
+  console.log(state.workoutInfo)
   NavigationBar.addVisibilityListener(({ visibility }) => {
     if (visibility === 'visible') {
       setTimeout(() => {
@@ -24,52 +35,50 @@ export default function App() {
   });
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <StatusBar hidden />
-          <Stack.Navigator
+    <NavigationContainer>
+      <StatusBar hidden />
+      <Stack.Navigator
 
-            screenOptions={{
-              headerStyle: {
-                backgroundColor: '#744db8',
-              },
-              headerTintColor: '#d7d3de',
-              headerTitleStyle: {
-                alignSelf: 'center',
-                fontWeight: 'bold',
-              },
-            }}
-            initialRouteName="Home"
-          >
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#744db8',
+          },
+          headerTintColor: '#d7d3de',
+          headerTitleStyle: {
+            alignSelf: 'center',
+            fontWeight: 'bold',
+          },
+        }}
+        initialRouteName="Home"
+      >
 
 
-            <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
 
-            <Stack.Screen
-              name="workoutCreator"
-              component={WorkoutCreator}
-              options={{
-                title: 'Workout program creator'
-              }}
-            />
+        <Stack.Screen
+          name="workoutCreator"
+          component={WorkoutCreator}
+          options={{
+            title: 'Workout program creator'
+          }}
+        />
 
-            <Stack.Screen name="ViewWorkout"
-              // options={{ title: 'Push/Pull/Legs' }}// update according to database
-              options={{
-                headerTitle: (props) => <Header {...props} />
-              }}
+        <Stack.Screen name="ViewWorkout"
+          options={{ title: state.workoutInfo.name }}// update according to database
+        // options={{ title: "PPL" }}// update according to database
+        // options={{
+        //   headerTitle: (props) => <Header {...props} />
+        // }}
 
-            >
-              {props => <MyTabs {...props} daysNum={5} />}
-            </Stack.Screen>
+        >
+          {props => <MyTabs {...props} daysNum={state.workoutInfo.days} />}
+          {/* {props => <MyTabs {...props} daysNum={5} />} */}
+        </Stack.Screen>
 
-            <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
+        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
 
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+      </Stack.Navigator>
+    </NavigationContainer>
 
   )
 }

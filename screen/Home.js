@@ -6,25 +6,42 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
       <Image
         source={require('../assets/splash.png')}
-        style={{ width: 300, height: 300 }}
+        style={{ position: 'absolute', top: 175, width: 300, height: 300 }}
       />
 
-      <View style={styles.body}>
+      <View style={{
+        position: 'absolute', bottom: 200,
+        // margin: 'auto', width: 'auto',
 
-        <View style={{ right: 60 }}>
-          <Text style={styles.infoText}>
-            New{'\n'}Workout Split
-          </Text>
+      }}>
+        <Icon
+          iconStyle={{ left: 6 }}
+          size={100}
+          name='ios-add-circle-outline'
+          type='ionicon'
+          color='#8C60D9'
+          onPress={() => navigation.navigate('workoutCreator')} />
+        <Text style={styles.infoText}>
+          ADD{'\n'}WORKOUT
+        </Text>
+      </View>
+
+      {/* </View> */}
+      {/* <View style={styles.body}>
+
+        <View style={{}}>
+
           <Icon
-
-            iconStyle={styles.icons}
+            size={100}
             name='ios-add-circle-outline'
             type='ionicon'
             color='#8C60D9'
             onPress={() => navigation.navigate('workoutCreator')} />
-
-        </View>
-
+          <Text style={styles.infoText}>
+            New{'\n'}Workout Split
+          </Text>
+        </View> */}
+      {/* 
         <View>
           <Text style={styles.infoText}>
             your{'\n'}workout splits
@@ -37,8 +54,7 @@ export default function Home({ navigation }) {
             color='#8C60D9'
             onPress={() => navigation.navigate('ViewWorkout')} />
         </View>
-
-      </View>
+ */}
     </View >
   );
 }
@@ -57,18 +73,14 @@ const styles = StyleSheet.create({
   body: {
     bottom: 65,
     flexDirection: 'row',
-    left: 30,
+    // left: 30,
     justifyContent: 'space-around',
 
     paddingHorizontal: 25
   },
   infoText: {
-    bottom: 17,
     textAlign: 'center',
     color: colors.textS,
-    fontSize: 16
+    fontSize: 20
   },
-  icons: {
-    fontSize: 65
-  }
 });

@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, TouchableOpacity, FlatList, StyleSheet,Text } from "react-native"
+import { View, TouchableOpacity, FlatList, StyleSheet, Text } from "react-native"
 
-export default function MyFlatList({  isName, data, selected, handlePress }) {
+export default function MyFlatList({ isName, data, selected, handlePress }) {
   return (
     <View style={styles.section}>
 
@@ -33,16 +33,16 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     borderRadius: 5,
-    backgroundColor: '#f9c2ff',
-    padding: 20,
+    backgroundColor: '#744db8',
+    padding: 15,
     marginVertical: 5,
     marginHorizontal: 8,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   title: {
-    color: 'black',
-    fontSize: 12,
+    color: 'white',
+    fontSize: 14,
   },
 
 })

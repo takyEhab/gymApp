@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import MyModel from '../components/MyModel'
 import MyFlatList from '../components/MyFlatList'
+import { useDispatch } from 'react-redux'
+import { newWorkout } from '../store/actions'
 
 let days = []
 
@@ -23,6 +25,8 @@ export default function WorkoutCreator({ navigation }) {
   const [daySelected, setDaySelected] = useState(null)
   const [modalVisible, setModalVisible] = useState(false);
   const [names, setNames] = useState(NAMES)
+  const [error, setError] = useState(false)
+  const dispatch = useDispatch()
 
   const addName = (newName) => {
     setNames([{ title: newName }, ...NAMES])
@@ -41,8 +45,14 @@ export default function WorkoutCreator({ navigation }) {
 
   const handleNext = () => {
     if (daySelected && nameSelected) {
-      console.log('hello')
+      dispatch(newWorkout(nameSelected, daySelected))
+
+      // console.log(nameSelected)
+      // console.log(daySelected)
+
       navigation.navigate('ViewWorkout')
+    } else {
+      setError(true)
     }
   }
 
@@ -55,7 +65,7 @@ export default function WorkoutCreator({ navigation }) {
           title: <Icon
             name='add'
             type='ionicon'
-            color='#517fa4'
+            color='white'
           />
         }, ...names]}
         selected={nameSelected}
@@ -74,12 +84,11 @@ export default function WorkoutCreator({ navigation }) {
         isName={false}
       />
 
-
-      <View style={{ left: 280, top: 270 }}>
-        <TouchableOpacity
-          onPress={handleNext}
-        >
-
+      {error &&
+        <Text style={styles.error}>Choose Name and days</Text>
+      }
+      <View style={{ position: 'absolute', right: 15, bottom: 15 }}>
+        <TouchableOpacity onPress={handleNext}>
           <Icon
             reverse
             name='right'
@@ -99,6 +108,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#121212',
     flex: 1,
+    position: 'relative'
   },
   infoText: {
     borderStyle: 'solid',
@@ -107,5 +117,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     padding: 20
   },
+  error: {
+    color: '#c91616',
+    fontSize: 20,
+    top: 50,
+    // marginVertical: 20,
+    // marginHorizontal: 20
+    textAlign: 'center',
+    fontWeight: 'bold'
+  }
 })
 

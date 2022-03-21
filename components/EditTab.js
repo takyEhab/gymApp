@@ -1,16 +1,28 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, TextInput } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, TextInput, Alert } from 'react-native'
 import { Icon } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { removeDay } from '../store/actions';
 
 export default function EditTab({ navigation, day }) {
+  const dispatch = useDispatch()
+  const handleDelete = () => {
+    Alert.alert('warning', 'Are you sure you want to delete this day exercise', [
+      { text: 'Yes', onPress: () => { dispatch(removeDay(day)); navigation.navigate('ViewWorkout') } },
+      { text: 'No' }
+    ])
+    // 
+  }
   return (
     <View style={styles.container}>
       <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', { day })} />
       <Icon
         size={30}
-        onPress={async () => await AsyncStorage.clear()}
-        name="more-vertical" type='feather' />
+        onPress={handleDelete}
+
+        name="delete" type='material-community-icons' />
+
     </View>
   )
 }
@@ -39,17 +51,7 @@ const styles = StyleSheet.create({
     width: 200,
     left: '50%',
     right: '25%',
-
-    // textAlign: 'center',
-    // flex: 1
   },
-  // text: {
-  //   color: 'white',
-  //   paddingHorizontal: 10
-  // },
-  // editText: {
-  //   position: 'absolute',
-  // }
   topIconsContainer: {
     flexDirection: 'row',
     position: 'absolute',

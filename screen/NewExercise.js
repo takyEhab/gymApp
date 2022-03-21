@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 import { Formik } from 'formik'
 import FormikChild from '../components/FormikChild';
 import * as yup from 'yup'
-import { addExercise, editExercise } from '../store/actions';
+import { addExercise, editExercise, removeExercise } from '../store/actions';
 import { useDispatch } from 'react-redux';
 // /^(\d+-?)+\d+$/
 
@@ -32,7 +32,7 @@ export default function NewExercise({ route, navigation }) {
   const { day, item, edit } = route.params
 
   const handleData = (data) => {
-    dispatch(edit ? addExercise(day, data) : editExercise(day, data))
+    dispatch(edit ? editExercise(day, data) : addExercise(day, data))
     navigation.navigate('ViewWorkout')
   }
   const handleSubmit = () => {
@@ -40,7 +40,11 @@ export default function NewExercise({ route, navigation }) {
       formRef.current.handleSubmit()
     }
   }
+  const handleDelete = () => {
+    dispatch(removeExercise(day, item.key))
+    navigation.navigate('ViewWorkout')
 
+  }
   const onFormSubmit = (values, actions) => {
     actions.resetForm()
     handleData(values)
@@ -62,14 +66,26 @@ export default function NewExercise({ route, navigation }) {
 
           </TouchableOpacity>
 
+          <View style={styles.iconsContainer}>
 
-          <TouchableOpacity style={styles.topIconsContainer}
-            onPress={handleSubmit}>
-            <Icon color="white" name="check" />
+            {edit && <TouchableOpacity style={{ ...styles.icon, backgroundColor: '#e80e0e' }}
+              onPress={handleDelete}>
+              <Icon color="white" name="close" />
 
-            <Text style={{ color: 'white', fontSize: 17 }} >Save</Text>
+              <Text style={styles.text} >Delete</Text>
 
-          </TouchableOpacity>
+            </TouchableOpacity>}
+
+            <TouchableOpacity style={styles.icon}
+              onPress={handleSubmit}>
+              <Icon color="white" name="check" />
+
+              <Text style={styles.text} >Save</Text>
+
+            </TouchableOpacity>
+
+
+          </View>
 
 
         </View>
@@ -87,23 +103,36 @@ export default function NewExercise({ route, navigation }) {
         {/* </ScrollView> */}
 
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableWithoutFeedback >
 
 
   )
 }
 
 const styles = StyleSheet.create({
-  topIconsContainer: {
+  iconsContainer: {
     position: 'absolute',
     right: 1,
+    flexDirection: 'row',
+
+  },
+  icon: {
+    // position: 'absolute',
+    // right: 1,
     color: 'white',
     backgroundColor: '#8C60D9',
-    paddingHorizontal: 25,
+    paddingRight: 20,
+    paddingLeft: 10,
     paddingVertical: 8,
-    marginHorizontal: 10,
-    borderRadius: 5,
-    flexDirection: 'row',
+    marginHorizontal: 5,
+    borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  text: {
+    left: 3,
+    color: 'white',
+    fontSize: 17.5,
   }
 })
