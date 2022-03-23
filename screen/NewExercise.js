@@ -93,7 +93,7 @@ export default function NewExercise({ route, navigation }) {
         {/* <ScrollView> */}
         <Formik
           innerRef={formRef}
-          initialValues={item ? { name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps } : { name: '', targetMuscle: '', sets: '', reps: '' }}
+          initialValues={item ? { key: item.key, name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps } : { name: '', targetMuscle: '', sets: '', reps: '' }}
           onSubmit={(values, actions) => onFormSubmit(values, actions)}
           validationSchema={exerciseSchema}
         >

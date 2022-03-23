@@ -24,6 +24,18 @@ export default function Home({ navigation }) {
         <Text style={styles.infoText}>
           ADD{'\n'}WORKOUT
         </Text>
+
+        <Icon
+          iconStyle={{ left: 6 }}
+          size={100}
+          name='ios-add-circle-outline'
+          type='ionicon'
+          color='#8C60D9'
+          onPress={() => navigation.navigate('ViewWorkout')} />
+
+        <Text style={styles.infoText}>
+          your{'\n'}workout splits
+        </Text>
       </View>
 
       {/* </View> */}

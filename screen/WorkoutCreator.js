@@ -46,7 +46,7 @@ export default function WorkoutCreator({ navigation }) {
   const handleNext = () => {
     if (daySelected && nameSelected) {
       dispatch(newWorkout(nameSelected, daySelected))
-
+      setError(false)
       // console.log(nameSelected)
       // console.log(daySelected)
 

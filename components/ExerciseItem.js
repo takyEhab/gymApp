@@ -8,7 +8,6 @@ export default function ExerciseItem({ item, navigation, day }) {
   return (
     <View style={styles.card}>
       <Image style={styles.exerciseImg} source={require('../assets/bench-press-1-1000x1000.jpg')} />
-      {/* <View style={{ width: 100, backgroundColor: 'red' }}></View> */}
 
       <Text style={styles.exerciseName}>
         {item.name}

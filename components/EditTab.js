@@ -5,11 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { removeDay } from '../store/actions';
 
-export default function EditTab({ navigation, day }) {
+
+
+export default function EditTab({ navigation, day, forceUpdate }) {
+
   const dispatch = useDispatch()
   const handleDelete = () => {
     Alert.alert('warning', 'Are you sure you want to delete this day exercise', [
-      { text: 'Yes', onPress: () => { dispatch(removeDay(day)); navigation.navigate('ViewWorkout') } },
+      { text: 'Yes', onPress: () => { dispatch(removeDay(day)); forceUpdate() } },
       { text: 'No' }
     ])
     // 

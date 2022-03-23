@@ -17,7 +17,6 @@ export default function MyTabs({ daysNum }) {
         },
         tabBarItemStyle: { width: 70 },
         tabBarStyle: {
-          alignItems: 'center',
           justifyContent: 'center',
           position: 'absolute',
           top: 15,

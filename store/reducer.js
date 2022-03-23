@@ -35,8 +35,16 @@ const reducer = (state = initialState, action) => {
 
     case ActionTypes.EDIT_EXERCISE:
       let myArray = state[action.payload.day]
-      const objIndex = myArray.findIndex((obj => obj.key == action.payload.data.key))
-      myArray[objIndex + 1] = action.payload.data
+      // myArray.map((item, i) => {
+      //   console.log(item)
+      //   console.log(i)
+      //   console.log('----------------------------------------')
+
+      // })
+      const objIndex = myArray.findIndex((obj => obj.key === action.payload.data.key))
+      // console.log(objIndex)
+      // console.log(action.payload.data)
+      myArray[objIndex] = action.payload.data
 
       return {
         ...state,

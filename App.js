@@ -25,7 +25,6 @@ export default function AppWrapper() {
 function App() {
   const Stack = createNativeStackNavigator();
   const state = useSelector(state => state.exercisesReducer)
-  console.log(state.workoutInfo)
   NavigationBar.addVisibilityListener(({ visibility }) => {
     if (visibility === 'visible') {
       setTimeout(() => {
