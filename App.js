@@ -1,4 +1,5 @@
 import React from 'react';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
@@ -9,8 +10,10 @@ import MyTabs from './screen/MyTabs'
 import NewExercise from './screen/NewExercise';
 import Header from './components/Header';
 import { PersistGate } from 'redux-persist/integration/react';
-import { Provider, useSelector } from 'react-redux';
+import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store, persistor } from './store/storeConfig'
+import { Icon } from 'react-native-elements';
+import { removeWorkout } from './store/actions';
 
 export default function AppWrapper() {
   return (
@@ -24,8 +27,9 @@ export default function AppWrapper() {
 
 function App() {
   const Stack = createNativeStackNavigator();
+  const dispatch = useDispatch()
   const state = useSelector(state => state.exercisesReducer)
-  NavigationBar.addVisibilityListener(({ visibility }) => {
+  NavigationBar.addVisibilityListener(({ visibility, navigation }) => {
     if (visibility === 'visible') {
       setTimeout(() => {
         NavigationBar.setVisibilityAsync("hidden")
@@ -39,16 +43,16 @@ function App() {
       <Stack.Navigator
 
         screenOptions={{
+
           headerStyle: {
             backgroundColor: '#744db8',
           },
           headerTintColor: '#d7d3de',
           headerTitleStyle: {
-            alignSelf: 'center',
             fontWeight: 'bold',
           },
         }}
-        initialRouteName="Home"
+        initialRouteName={state.workoutInfo ? 'ViewWorkout' : 'Home'}
       >
 
 
@@ -63,21 +67,34 @@ function App() {
         />
 
         <Stack.Screen name="ViewWorkout"
-          options={{ title: state.workoutInfo.name }}// update according to database
-        // options={{ title: "PPL" }}// update according to database
-        // options={{
-        //   headerTitle: (props) => <Header {...props} />
-        // }}
+          options={({ navigation }) => ({
+            headerTitleAlign: 'center',
+            title: state.workoutInfo ? state.workoutInfo.name : '',
+            // headerTitle: (props) => <Header {...props} title={state.workoutInfo.name} />,
+            // headerTitle: () => <View></View>,
+            headerLeft: () => <View></View>,
+            headerRight: () => <Icon color='white' name="delete" type='material-community-icons' onPress={() => {
+              Alert.alert('warning', 'Are you sure you want to delete this workout', [
+                {
+                  text: 'Yes', onPress: () => {
+                    navigation.navigate('Home')
+                    dispatch(removeWorkout())
+                  }
+                },
+                { text: 'No' }
+              ])
+            }} />
+          })}
 
         >
-          {props => <MyTabs {...props} daysNum={state.workoutInfo.days} />}
+          {props => <MyTabs {...props} daysNum={state.workoutInfo ? state.workoutInfo.days : 1} />}
           {/* {props => <MyTabs {...props} daysNum={5} />} */}
         </Stack.Screen>
 
-        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="MyModal" component={NewExercise} />
+        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="newExerciseModal" component={NewExercise} />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+      </Stack.Navigator >
+    </NavigationContainer >
 
   )
 }

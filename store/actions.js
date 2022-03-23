@@ -31,4 +31,9 @@ const removeExercise = (day, key) => {
     payload: { day, key }
   }
 }
-export { addExercise, editExercise, removeDay, removeExercise, newWorkout }
+const removeWorkout = () => {
+  return {
+    type: ActionTypes.REMOVE_WORKOUT
+  }
+}
+export { addExercise, editExercise, removeDay, removeExercise, newWorkout, removeWorkout }

@@ -14,10 +14,13 @@ import { v4 as uuidv4 } from 'uuid';
 // }
 
 const initialState = {
-  workoutInfo: { name: 'Push/pull/legs', days: 5 }
+  workoutInfo: null
 }
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionTypes.REMOVE_WORKOUT:
+      return { workoutInfo: null }
+      
     case ActionTypes.NEW_WORKOUT:
       const { name, days } = action.payload
       return {

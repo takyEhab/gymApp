@@ -3,45 +3,50 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Icon } from "react-native-elements"
 
 
-export default function Header() {
-  const [dropDownMore, setDropDownMore] = useState(false)
-  const [dropDownWorkouts, setDropDownWorkouts] = useState(false)
-
+export default function Header({ title }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-      <View >
-
-        <TouchableOpacity style={styles.container} onPress={() => setDropDownWorkouts(!dropDownWorkouts)}>
-          <Text style={{ color: '#d7d3de', fontSize: 19 }}>Push/Pull/Legs</Text>
-          <Icon color='#d7d3de' name='expand-more' type='material' />
-
-        </TouchableOpacity>
-        {dropDownWorkouts &&
-          <View style={{ backgroundColor: 'red', order: 1 }}>
-            <Text>HI</Text>
-          </View>}
-      </View>
-
-
-      <View >
-
-        <TouchableOpacity
-          style={styles.container2}
-          onPress={() => setDropDownMore(!dropDownMore)}
-        >
-          <Icon
-            color='#d7d3de'
-            name="more-vertical" type='feather' />
-        </TouchableOpacity>
-        {dropDownMore &&
-          <View style={{ backgroundColor: 'red' }}>
-            <Text>HI</Text>
-          </View>}
-      </View>
-
+    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <Text style={{ textAlign: 'center' }}>{title}</Text>
     </View>
-
   )
+  // const [dropDownMore, setDropDownMore] = useState(false)
+  // const [dropDownWorkouts, setDropDownWorkouts] = useState(false)
+
+  // return (
+  //   <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+  //     <View >
+
+  //       <TouchableOpacity style={styles.container} onPress={() => setDropDownWorkouts(!dropDownWorkouts)}>
+  //         <Text style={{ color: '#d7d3de', fontSize: 19 }}>{title}</Text>
+  //         <Icon color='#d7d3de' name='expand-more' type='material' />
+
+  //       </TouchableOpacity>
+  //       {dropDownWorkouts &&
+  //         <View style={{ backgroundColor: 'red', order: 1 }}>
+  //           <Text>HI</Text>
+  //         </View>}
+  //     </View>
+
+
+  //     <View >
+
+  //       <TouchableOpacity
+  //         style={styles.container2}
+  //         onPress={() => setDropDownMore(!dropDownMore)}
+  //       >
+  //         <Icon
+  //           color='#d7d3de'
+  //           name="more-vertical" type='feather' />
+  //       </TouchableOpacity>
+  //       {dropDownMore &&
+  //         <View style={{ backgroundColor: 'red' }}>
+  //           <Text>HI</Text>
+  //         </View>}
+  //     </View>
+
+  //   </View>
+
+  // )
 }
 
 const styles = StyleSheet.create({

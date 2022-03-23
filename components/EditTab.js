@@ -19,7 +19,7 @@ export default function EditTab({ navigation, day, forceUpdate }) {
   }
   return (
     <View style={styles.container}>
-      <Icon name='add' size={40} onPress={() => navigation.navigate('MyModal', { day })} />
+      <Icon name='add' size={40} onPress={() => navigation.navigate('newExerciseModal', { day })} />
       <Icon
         size={30}
         onPress={handleDelete}

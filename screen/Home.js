@@ -24,7 +24,7 @@ export default function Home({ navigation }) {
         <Text style={styles.infoText}>
           ADD{'\n'}WORKOUT
         </Text>
-
+        {/* 
         <Icon
           iconStyle={{ left: 6 }}
           size={100}
@@ -35,7 +35,7 @@ export default function Home({ navigation }) {
 
         <Text style={styles.infoText}>
           your{'\n'}workout splits
-        </Text>
+        </Text> */}
       </View>
 
       {/* </View> */}
@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
   infoText: {
     textAlign: 'center',
     color: colors.textS,
-    fontSize: 20
+    fontSize: 17.5
   },
 });
