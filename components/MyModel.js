@@ -5,7 +5,7 @@ export default function MyModel({ modalVisible, setModalVisible, addName }) {
   const [text, onChangeText] = React.useState("")
   const [error, setError] = useState(false)
   const handleClose = () => {
-    onChangeText("")
+    onChangeText('')
     setError(false)
     setModalVisible(false)
   }

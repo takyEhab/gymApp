@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity, Modal, ScrollView, Keyboard, TouchableWithoutFeedback } from 'react-native'
 import { Icon } from 'react-native-elements'
 import { Formik } from 'formik'
-import FormikChild from '../components/FormikChild';
+import FormikChild from './FormikChild';
 import * as yup from 'yup'
 import { addExercise, editExercise, removeExercise } from '../store/actions';
 import { useDispatch } from 'react-redux';

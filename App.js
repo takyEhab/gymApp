@@ -7,7 +7,7 @@ import * as NavigationBar from 'expo-navigation-bar';
 import Home from './screen/Home'
 import WorkoutCreator from './screen/WorkoutCreator';
 import MyTabs from './screen/MyTabs'
-import NewExercise from './screen/NewExercise';
+import NewExerciseModal from './components/NewExerciseModal';
 import Header from './components/Header';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -70,8 +70,6 @@ function App() {
           options={({ navigation }) => ({
             headerTitleAlign: 'center',
             title: state.workoutInfo ? state.workoutInfo.name : '',
-            // headerTitle: (props) => <Header {...props} title={state.workoutInfo.name} />,
-            // headerTitle: () => <View></View>,
             headerLeft: () => <View></View>,
             headerRight: () => <Icon color='white' name="delete" type='material-community-icons' onPress={() => {
               Alert.alert('warning', 'Are you sure you want to delete this workout', [
@@ -88,10 +86,9 @@ function App() {
 
         >
           {props => <MyTabs {...props} daysNum={state.workoutInfo ? state.workoutInfo.days : 1} />}
-          {/* {props => <MyTabs {...props} daysNum={5} />} */}
         </Stack.Screen>
 
-        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="newExerciseModal" component={NewExercise} />
+        <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="newExerciseModal" component={NewExerciseModal} />
 
       </Stack.Navigator >
     </NavigationContainer >
