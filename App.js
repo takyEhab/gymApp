@@ -14,6 +14,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store, persistor } from './store/storeConfig'
 import { Icon } from 'react-native-elements';
 import { removeWorkout } from './store/actions';
+import ImagePicker from './components/ImagePicker';
 
 export default function AppWrapper() {
   return (
@@ -90,6 +91,7 @@ function App() {
 
         <Stack.Screen options={{ presentation: 'modal', headerShown: false }} name="newExerciseModal" component={NewExerciseModal} />
 
+        <Stack.Screen options={{ presentation: 'modal' }} name="imagePickerModal" component={ImagePicker} />
       </Stack.Navigator >
     </NavigationContainer >
 

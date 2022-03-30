@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Modal } from 'react-native'
 import { useFormikContext } from 'formik';
 import SelectBox from 'react-native-multi-selectbox'
-import Icon from 'react-native-multi-selectbox/src/components/Icon';
+import { TouchableOpacity } from 'react-native';
 
 const MUSCLES = [
   { item: 'Chest' },
@@ -14,10 +14,11 @@ const MUSCLES = [
   { item: 'Forearms' }
 ]
 
-export default function FormikChild() {
+export default function FormikChild({ navigation }) {
   const formik = useFormikContext()
-
+  const [modalVisible, setModalVisible] = useState(false);
   const [selectedMuscle, setSelectedMuscle] = useState({ item: formik.values.targetMuscle })
+  const [img, setImg] = useState('')
 
   return (
     <View>
@@ -40,6 +41,16 @@ export default function FormikChild() {
       />
 
       <Text style={{ color: 'red' }}>{formik.touched.name && formik.errors.name}</Text>
+
+
+      <TouchableOpacity
+        style={{ backgroundColor: '#8C60D9', }}
+        onPress={() => navigation.navigate('imagePickerModal', { setImg: formik.setFieldValue })}>
+        <Text style={{ fontSize: 23, color: '#444', margin: 10, textAlign: 'center' }}>Exercise Image</Text>
+      </TouchableOpacity>
+
+
+      <Text style={{ color: 'red' }}>{formik.touched.img && formik.errors.img}</Text>
 
       <View style={{ margin: 30, }}>
         {/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>Targeted muscles</Text> */}

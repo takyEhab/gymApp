@@ -23,6 +23,7 @@ const exerciseSchema = yup.object({
       /^(\d+-|\d?)+\d+$/,
       "Input should only be number and maybe dash in between"
     )
+  , img: yup.string().required()
 })
 
 export default function NewExercise({ route, navigation }) {
@@ -93,11 +94,11 @@ export default function NewExercise({ route, navigation }) {
         {/* <ScrollView> */}
         <Formik
           innerRef={formRef}
-          initialValues={item ? { key: item.key, name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps } : { name: '', targetMuscle: '', sets: '', reps: '' }}
+          initialValues={item ? { key: item.key, name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps, img: item.imgUri } : { name: '', targetMuscle: '', sets: '', reps: '', img: '' }}
           onSubmit={(values, actions) => onFormSubmit(values, actions)}
           validationSchema={exerciseSchema}
         >
-          <FormikChild />
+          <FormikChild navigation={navigation} />
         </Formik>
 
         {/* </ScrollView> */}

@@ -7,7 +7,23 @@ export default function ExerciseItem({ item, navigation, day }) {
   const [isVolumeEdit, setVolumeEdit] = useState(false)
   return (
     <View style={styles.card}>
-      <Image style={styles.exerciseImg} source={require('../assets/bench-press-1-1000x1000.jpg')} />
+      <View style={{
+        position: 'absolute',
+        left: 12,
+        borderRadius: 10,
+        top: 20,
+        backgroundColor: 'white',
+        borderRadius: 10
+      }}>
+
+        {/* <Image style={styles.exerciseImg} */}
+        <Image style={styles.exerciseImg}
+          // source={require('../assets/bench-press-1-1000x1000.jpg')}
+          resizeMode="center"
+
+          source={{ uri: item.img }}
+        />
+      </View>
 
       <Text style={styles.exerciseName}>
         {item.name}
@@ -118,12 +134,14 @@ const styles = StyleSheet.create({
     lineHeight: 40
   },
   exerciseImg: {
+    // backgroundColor: 'white',
+
     width: 100,
     height: 90,
-    position: 'absolute',
-    left: 12,
-    borderRadius: 10,
-    top: 20
+    // position: 'absolute',
+    // left: 12,
+    // borderRadius: 10,
+    // top: 20
 
   }, editIcon: {
     position: 'absolute',
