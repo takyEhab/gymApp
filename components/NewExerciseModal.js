@@ -52,7 +52,6 @@ export default function NewExercise({ route, navigation }) {
   }
 
   return (
-
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{
         // backgroundColor: '#121212'
@@ -94,7 +93,7 @@ export default function NewExercise({ route, navigation }) {
         {/* <ScrollView> */}
         <Formik
           innerRef={formRef}
-          initialValues={item ? { key: item.key, name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps, img: item.imgUri } : { name: '', targetMuscle: '', sets: '', reps: '', img: '' }}
+          initialValues={item ? { key: item.key, name: item.name, targetMuscle: item.targetMuscle, sets: item.sets, reps: item.reps, img: item.img } : { name: '', targetMuscle: '', sets: '', reps: '', img: '' }}
           onSubmit={(values, actions) => onFormSubmit(values, actions)}
           validationSchema={exerciseSchema}
         >

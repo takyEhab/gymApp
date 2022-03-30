@@ -3,8 +3,6 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'reac
 import { Icon } from 'react-native-elements'
 
 export default function ExerciseItem({ item, navigation, day }) {
-
-  const [isVolumeEdit, setVolumeEdit] = useState(false)
   return (
     <View style={styles.card}>
       <View style={{
@@ -16,11 +14,8 @@ export default function ExerciseItem({ item, navigation, day }) {
         borderRadius: 10
       }}>
 
-        {/* <Image style={styles.exerciseImg} */}
         <Image style={styles.exerciseImg}
-          // source={require('../assets/bench-press-1-1000x1000.jpg')}
           resizeMode="center"
-
           source={{ uri: item.img }}
         />
       </View>
@@ -32,31 +27,15 @@ export default function ExerciseItem({ item, navigation, day }) {
           {item.targetMuscle}
         </Text>
       </Text>
-      <TouchableOpacity style={styles.volumeInfo}
-        onPress={() => setVolumeEdit(!isVolumeEdit)}
-      >
+      <View style={styles.volumeInfo}>
         <View style={styles.setInfo}>
-          <Text style={styles.textInfo} >sets: {!isVolumeEdit && item.sets}</Text>
-
-          {
-            isVolumeEdit &&
-            <TextInput style={styles.textInput}
-              value={item.sets.toString()} />
-
-          }
+          <Text style={styles.textInfo} >sets: {item.sets}</Text>
         </View>
-
         <View style={styles.setInfo}>
+          <Text style={styles.textInfo} >reps:  {item.reps} </Text>
 
-          <Text style={styles.textInfo} >reps: {!isVolumeEdit && item.reps} </Text>
-          {
-            isVolumeEdit &&
-            <TextInput style={styles.textInput}
-              value={item.reps.toString()} />
-
-          }
         </View>
-      </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.editIcon} onPress={
         () => navigation.navigate('newExerciseModal', { day, item, edit: true })
@@ -134,14 +113,8 @@ const styles = StyleSheet.create({
     lineHeight: 40
   },
   exerciseImg: {
-    // backgroundColor: 'white',
-
     width: 100,
-    height: 90,
-    // position: 'absolute',
-    // left: 12,
-    // borderRadius: 10,
-    // top: 20
+    height: 90
 
   }, editIcon: {
     position: 'absolute',

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, StyleSheet, Modal } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native'
 import { useFormikContext } from 'formik';
 import SelectBox from 'react-native-multi-selectbox'
 import { TouchableOpacity } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 const MUSCLES = [
   { item: 'Chest' },
@@ -43,15 +44,53 @@ export default function FormikChild({ navigation }) {
       <Text style={{ color: 'red' }}>{formik.touched.name && formik.errors.name}</Text>
 
 
-      <TouchableOpacity
-        style={{ backgroundColor: '#8C60D9', }}
-        onPress={() => navigation.navigate('imagePickerModal', { setImg: formik.setFieldValue })}>
-        <Text style={{ fontSize: 23, color: '#444', margin: 10, textAlign: 'center' }}>Exercise Image</Text>
-      </TouchableOpacity>
+
+      {formik.values.img ?
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate('imagePickerModal', { setImg: formik.setFieldValue })}
+
+          style={{
+            // width: 250,
+            // height: 150,
+            position: 'relative',
+            alignItems: 'center', borderColor: 'black', borderWidth: 1, borderRadius: 30, marginBottom: 20
+          }}>
+
+          <Image
+            style={{
+              backgroundColor: 'white',
+              marginBottom: 20,
+              width: 250,
+              height: 150,
+            }}
+            resizeMode="center"
+            source={{ uri: formik.values.img }}
+          />
+        </TouchableOpacity>
+        :
+        <View
+          style={{
+            // backgroundColor: '#8C60D9',
+            // flexDirection: 'row',
+            marginBottom: 20,
+            justifyContent: 'center',
+            alignItems: 'center',
+
+          }}>
+          <Icon
+            onPress={() => navigation.navigate('imagePickerModal', { setImg: formik.setFieldValue })}
+            size={30}
+            name='image-plus' type='material-community' raised color='purple' />
+          <Text style={{ fontSize: 16, color: '#444', margin: 1, textAlign: 'center' }}>Choose Image</Text>
+        </View>
+      }
 
 
       <Text style={{ color: 'red' }}>{formik.touched.img && formik.errors.img}</Text>
-
+      {/* <Text>
+        {formik.values.name}
+      </Text> */}
       <View style={{ margin: 30, }}>
         {/* <Text style={{ fontSize: 20, paddingBottom: 10 }}>Targeted muscles</Text> */}
         <SelectBox
@@ -76,6 +115,8 @@ export default function FormikChild({ navigation }) {
         <Text style={{ color: 'red' }}>{formik.touched.targetMuscle && formik.errors.targetMuscle}</Text>
 
       </View>
+
+
 
       <View style={styles.setsAndRepsContainer}>
         <Text style={{ fontSize: 20, color: '#000', position: 'absolute', top: 1 }}>Sets Reputation</Text>
