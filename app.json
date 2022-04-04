@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "gymApp",
+    "name": "Gym App",
     "slug": "gymApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,6 +23,8 @@
       "visible": "immersive"
     },
     "android": {
+      "package": "com.taky_allah.gymApp",
+      "versionCode":1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#121212"
